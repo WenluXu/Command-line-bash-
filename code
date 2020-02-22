@@ -1,0 +1,30 @@
+#!/bin/bash 
+echo "Welcome to my world!"
+firstline=$(head -n 1 source/changelog.md)
+read -a splitfirstline <<< $firstline
+version=${splitfirstline[1]}
+echo  "You are building version" $verison
+echo  "Do you want to quit? enter 1(yes) 0(no)"
+read versioncontinue
+if [ $versioncontinue -eq 1 ]
+ then
+    for filename in source/*
+      do
+         if [ "$filename" == "source/secretinfo.md" ]
+           then 
+             echo "Not copying" $filename
+           else
+             cp $filename build/
+             echo "copying" $filename
+        fi
+      done
+ else
+    echo "Please come back when you are ready"
+fi
+cd build/
+# We'll add more code here later
+cd ..
+echo "Build version $version contains:"
+ls
+git remote add origin https://github.com/WenluXu/Command-line-bash-.git
+git push -u origin master
